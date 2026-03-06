@@ -9,11 +9,7 @@ public:
     void describe() const {
         std::cout << "I'm a shape named : " << name << "." << std::endl;
     }
-    virtual double area() 
-    {
-        std::cout << "Area calculation not implemented for base Shape class." << std::endl;
-        return 0.0; // Base class does not have a specific area calculation 
-    }
+    virtual double area() = 0; // Pure virtual function to calculate area, making Shape an abstract class
 };
 
 class Circle : public Shape {
@@ -27,10 +23,11 @@ public:
 };
 
 int main() {
-    Shape myShape("Shape"); // Create an instance of Shape
-    myShape.describe(); // Describe the shape
-    myShape.area(); // Attempt to calculate area (not implemented for base class)
-
+    Shape* s = new Circle(5.0); // Create a shape pointer to a Circle instance with radius 5.0
+    s->describe(); // Describe the shape (should describe it as a Circle)
+    std::cout << "Area of the shape: " << s->area() << std::endl; // Calculate and display area of the shape (should calculate area of the circle)
+    delete s; // Clean up memory
+    
     Circle myCircle(5.0); // Create an instance of Circle with radius 5.0
     myCircle.describe(); // Describe the circle
     std::cout << "Area of the circle: " << myCircle.area() << std::endl; // Calculate and display area of the circle
